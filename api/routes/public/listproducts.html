@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+<style>
+
+
+
+body{
+  font-family: Montserrat;
+  background-image: url("/backr.jpg");
+}
+button{
+  border-radius: 8px;
+  font-size: 24px;
+  background-color: #eaeaea;
+}
+h1{
+
+  text-align: center;
+  font-size: 40px;
+}
+hr{
+  color: black;
+  background-color: black;
+  padding: 2px;
+  width:70%;
+}
+#mainDiv{
+text-align: center;
+
+width 50%;
+}
+input[type="text"], textarea {
+
+  background-color : #eaeaea;
+
+}
+select {
+    padding:3px;
+    margin: 0;
+    -webkit-border-radius:4px;
+    -moz-border-radius:4px;
+    border-radius:4px;
+    -webkit-box-shadow: 0 3px 0 #ccc, 0 -1px #fff inset;
+    -moz-box-shadow: 0 3px 0 #ccc, 0 -1px #fff inset;
+    box-shadow: 0 3px 0 #ccc, 0 -1px #fff inset;
+    background: #eaeaea;
+    color:black;
+    border:none;
+    outline:none;
+    display: inline-block;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    appearance:none;
+    cursor:pointer;
+}
+
+
+</style>
+
+    <title>Product Website</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+      $.ajax({
+        url: '/products',
+        type: 'GET',
+        success: function(response){
+            var options = "";
+            for(var i = 0;i < response.length; i++)
+            {
+
+                options += "<option value='" + response[i].id + "'>" +
+                response[i].name  +"</option>";
+            }
+            $("#products").html(options);
+        }
+      });
+//Overhere
+    $("#products").on('change',function(){
+      $.ajax({
+        url: "/products/" + $("#products").val(),
+        type: 'GET',
+        success: function(response){    // response contains json object in i
+            console.log(response);
+            $("#name").val(response[0].name);
+            $("#price").val(response[0].price);
+            $("#stock").val(response[0].stock);
+            $("#cid").val(response[0].id);
+        }
+      });
+    });
+    $("#edit").on('click',function(){
+      console.log("products/" + $("#cid").val());
+          var newName = $("#name").val();
+          var newStock = $("#stock").val();
+          var newPrice = $("#price").val();
+
+          $.ajax({
+            type: "PUT",
+            url: "products/" + $("#cid").val(),
+            data: {name: newName, stock: newStock, price: newPrice},
+            cache:false,
+            success: function(response){    // response contains json object in i
+              //$("#msg").html(response.name +' updated.');
+              alert('Updated');
+              window.location.reload();
+            },
+            error: function(data){
+              alert('Updated');
+              console.log(data);
+            }
+          });
+        });
+    $("#add").on('click',function(){
+      $.ajax({
+        url: "/products/",
+        type: 'POST',
+        data: "name=" + $("#name").val() + "&price=" + $("#price").val() + "&stock=" + $("#stock").val(),
+        success: function(response){    // response contains json object in i
+          $("#msg").html($("#name").val() +' added.');
+          updatelist();
+      }
+    });
+  });
+  $("#delete").on('click',function(){
+    console.log($("#cid").val());
+    var url = "/products/" + $("#cid").val();
+    console.log(url);
+    if(confirm("Delete " + $("#name").val() +"?")){
+      $.ajax({
+        url: "/products/" + $("#cid").val(),
+        type: 'DELETE',
+        success: function(response){    // response contains json object in i
+          $("#msg").html(response);
+          updatelist();
+        },
+        error: function(data){
+          console.log(data);
+        }
+     });
+   }
+ });
+
+});
+  function updatelist(){
+    $.ajax({
+      url: '/products',
+      type: 'GET',
+      success: function(response){
+          var options = "";
+          for(var i = 0;i < response.length; i++)
+          {
+            options += "<option value='" + response[i].id + "'>" +
+            response[i].name + "("  + response[i].price + " "+ response[i].stock + ")" +"</option>";
+          }
+          $("#products").html(options);
+      }
+    });
+  }
+    </script>
+</head>
+<body style="background-image: url('/backr');">
+    <h1>Products List</h1><hr />
+    <div id="mainDiv">
+      <div class="select-style">
+
+    <select id="products">
+    </select>
+    <p>
+      Name: <input type="text" id="name" />
+      Price: <input type="text" id="price" />
+      Stock: <input type="text" id="stock" />
+      <input type="hidden" id="cid" />&nbsp
+    </p>
+    </div>
+    <div class="pure--group" role="group" aria-label="...">
+
+
+
+    <button id="edit" >Edit Product</button>&nbsp
+    <button id="add" >Add Product</button>&nbsp
+    <button id="delete">Delete Product</button>
+
+  </div>
+    <p id="msg"></p>
+    </div>
+</body>
+</html>
