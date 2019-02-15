@@ -10,7 +10,7 @@ var server_port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
 var server_ip_adress = process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 
 const mc = mysql.createConnection({
-  host     : process.env.OPENSHIFT_MYSQL_DB_HOST,
+  host     : 'mysql://$OPENSHIFT_MYSQL_DB_HOST:$OPENSHIFT_MYSQL_DB_PORT/',
  user     : process.env.OPENSHIFT_MYSQL_DB_USERNAME,
  password : process.env.OPENSHIFT_MYSQL_DB_PASSWORD,
  port     : process.env.OPENSHIFT_MYSQL_DB_PORT,
