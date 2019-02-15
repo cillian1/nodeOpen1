@@ -17,7 +17,7 @@ const mc = mysql.createConnection({
  database : process.env.OPENSHIFT_APP_NAME
 });
 
-
+//helo
 mc.connect();
 
 app.get('/backr',(req,res)=>{
