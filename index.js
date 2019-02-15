@@ -8,16 +8,16 @@ app.use(body_parser.urlencoded({extended:true}));
 app.use(body_parser.json());
 var server_port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
 var server_ip_adress = process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
-// connection configurations
-// const mc = mysql.createConnection({
-//     host: 'localhost',
-//     user: 'root',
-//     password: 'c0nygre',
-//     database: 'productsDB'
-// });
+connection configurations
+const mc = mysql.createConnection({
+    host: 'mysql://mysql:3306/',
+    user: 'userV38',
+    password: 'C6hiyMap6Pac05H8',
+    database: 'productsDB'
+});
 
-// connect to database
-// mc.connect();
+connect to database
+mc.connect();
 
 app.get('/backr',(req,res)=>{
   res.sendFile(__dirname+'/backr.jpg');
