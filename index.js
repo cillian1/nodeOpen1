@@ -17,7 +17,7 @@ var server_ip_adress = process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 // });
 
 // connect to database
-mc.connect();
+// mc.connect();
 
 app.get('/backr',(req,res)=>{
   res.sendFile(__dirname+'/backr.jpg');
