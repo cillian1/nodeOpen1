@@ -2,9 +2,9 @@ var mysql = require('mysql');
 
 //local mysql db connection
 var connection = mysql.createConnection({
-  host: 'mysql://mysql:3306/',
-  user: 'userV38',
-  password: 'C6hiyMap6Pac05H8',
+  host: 'cilliandb.ctbcnu6bs24s.us-east-1.rds.amazonaws.com',
+  user: 'cillian',
+  password: 'cillian1',
   database: 'productsDB'
 });
 
