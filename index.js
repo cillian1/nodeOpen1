@@ -16,7 +16,7 @@ const mc = mysql.createConnection({
     database: 'productsDB'
 });
 
-connect to database
+
 mc.connect();
 
 app.get('/backr',(req,res)=>{
