@@ -2,12 +2,13 @@ var mysql = require('mysql');
 
 //local mysql db connection
 var connection = mysql.createConnection({
-  host: 'cilliandb.ctbcnu6bs24s.us-east-1.rds.amazonaws.com',
-  user: 'cillian',
-  password: 'cillian1',
-  database: 'productsDB'
+  host: 'mysql://' + process.env.OPENSHIFT_MYSQL_DB_HOST + ':' + process.env.OPENSHIFT_MYSQL_DB_PORT + '/',
+    user: process.env.OPENSHIFT_MYSQL_DB_USERNAME,
+    password: process.env.OPENSHIFT_MYSQL_DB_PASSWORD,
+    database: 'productsDB'
+    multipleStatements:true,
+    debug:true
 });
-
 connection.connect(function(err) {
     if (err) throw err;
    });
