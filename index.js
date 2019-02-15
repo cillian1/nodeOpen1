@@ -9,12 +9,12 @@ app.use(body_parser.json());
 var server_port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
 var server_ip_adress = process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 // connection configurations
-const mc = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'c0nygre',
-    database: 'productsDB'
-});
+// const mc = mysql.createConnection({
+//     host: 'localhost',
+//     user: 'root',
+//     password: 'c0nygre',
+//     database: 'productsDB'
+// });
 
 // connect to database
 mc.connect();
