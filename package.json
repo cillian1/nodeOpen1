@@ -8,7 +8,7 @@
   },
   "scripts": {
       "start": "index.js"
-  }
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cillian1/nodeOpen1.git"
