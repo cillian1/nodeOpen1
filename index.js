@@ -27,8 +27,7 @@ var routes = require('./api/routes/appRoutes'); //importing route
 routes(app); //register the route
 
 //app.listen(8081);
-// app.listen(server_port,server_ip_adress,function(){
-app.listen(6969,server_ip_adress,function(){
+app.listen(server_port,server_ip_adress,function(){
 console.log("Listening on " +server_ip_adress+ ", server port is " + server_port);
 })
 //console.log("Server listening on port 8081");
